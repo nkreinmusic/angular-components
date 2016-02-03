@@ -3,6 +3,7 @@ var sync    = require('run-sequence');
 var browser = require('browser-sync');
 var webpack = require('webpack-stream');
 var todo    = require('gulp-todoist');
+var config  = require('./webpack.config');
 
 /*
 map of paths for using with the tasks below
@@ -30,6 +31,9 @@ gulp.task('build', ['todo'], function() {
   the plugin takes the webpack.config as an arg.
   be sure to stream the result to the destination path
    */
+  return gulp.src(paths.entry)
+    .pipe(webpack(config))
+    .pipe(gulp.dest(paths.dest));
 });
 
 gulp.task('serve', function() {
